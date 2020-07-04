@@ -1,20 +1,32 @@
 <template>
   <div>
       <div class="question-container">{{ question }}</div>
-      <div class="answer-container" v-for="answer in answers" v-bind:key="answer">{{ answer }}</div>
+      <Answer class="answer-container"
+              v-for="answer in answers" 
+              :item="answer"
+              :key="answer"></Answer>
   </div>
 </template>
 
 <script>
 import QuestionBuilder from '../DAL/question.builder'
+import Answer from './Answer'
 
 export default {
   name: 'Question',
+  components: {
+      Answer
+  },
 
   data() {
     return {
         question: "",
-        answers: []
+        answers: [],
+        color: "#e74c3c",
+        ripple: {
+            center: true,
+            class: ".ripple"
+        }
     }
   },
 
@@ -36,6 +48,14 @@ export default {
 </script>
 
 <style scoped>
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.c-p2 {
+  color: #e74c3c;
+}
+
 .question-container {
     background-color: #fff;
     width: 35vw;
@@ -48,6 +68,8 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    font-weight: 600;
+    text-align: center;
 }
 
 .answer-container {
@@ -63,6 +85,7 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    font-weight: 400;
 }
 
 .answer-container:hover {
