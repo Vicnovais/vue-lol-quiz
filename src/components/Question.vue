@@ -1,10 +1,10 @@
 <template>
   <div>
       <div class="question-container">{{ question }}</div>
-      <Answer class="answer-container"
-              v-for="answer in answers" 
+      <Answer v-for="answer in answers" 
               :item="answer"
-              :key="answer"></Answer>
+              :key="answer"
+              @click="checkAnswer"></Answer>
   </div>
 </template>
 
@@ -21,12 +21,7 @@ export default {
   data() {
     return {
         question: "",
-        answers: [],
-        color: "#e74c3c",
-        ripple: {
-            center: true,
-            class: ".ripple"
-        }
+        answers: []
     }
   },
 
@@ -39,9 +34,13 @@ export default {
       async buildQuestion() {
           await this.questionBuilder.init();
           const titleQuestion = this.questionBuilder.buildTitleQuestion();
-          this.selectedQuestion = titleQuestion;
           this.question = titleQuestion.question;
           this.answers = titleQuestion.possibleAnswers;
+      },
+
+      checkAnswer(evt, answer) {
+          const isCorrect = this.questionBuilder.checkAnswer(answer);
+          if (isCorrect) this.buildQuestion();
       }
   }
 }
@@ -50,10 +49,6 @@ export default {
 <style scoped>
 * {
     font-family: 'Open Sans', sans-serif;
-}
-
-.c-p2 {
-  color: #e74c3c;
 }
 
 .question-container {
@@ -70,29 +65,7 @@ export default {
     justify-content: center;
     font-weight: 600;
     text-align: center;
-}
-
-.answer-container {
-    background-color: #fff;
-    width: 35vw;
-    height: 8vh;
-    border-radius: 15px;
-    border: 3px solid #0abde3;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    font-weight: 400;
-}
-
-.answer-container:hover {
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-
-.answer-container:not(:last-child) {
-    margin-bottom: 25px;
+    padding: 12px;
+    box-sizing: border-box;
 }
 </style>

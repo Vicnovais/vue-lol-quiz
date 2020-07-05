@@ -1,16 +1,19 @@
 <template>
   <div id="page" class="test">
     <Question />
+    <Modal />
   </div>
 </template>
 
 <script>
 import Question from './Question.vue'
+import Modal from './Modal.vue'
 
 export default {
   name: 'Page',
   components: {
-    Question
+    Question,
+    Modal
   }
 }
 </script>

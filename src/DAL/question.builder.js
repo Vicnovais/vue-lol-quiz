@@ -38,11 +38,17 @@ export default class QuestionBuilder {
               answers = [questionChampion.name, ...this.randomizeChampionsAnswer(questionChampion.name)],
               shuffledAnswers = this.shuffleArray(answers);
 
-        return {
+        this.selectedQuestion = {
             question: `Which champion has the following title: ${ questionChampion.title }?`,
             correctAnswer: questionChampion.name,
             possibleAnswers: shuffledAnswers
-        }
+        };
+
+        return this.selectedQuestion;
+    }
+
+    checkAnswer(answer) {
+        return this.selectedQuestion.correctAnswer === answer;
     }
 
     randomizeChampionsAnswer(correctChampion) {
