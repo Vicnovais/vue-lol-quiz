@@ -51,6 +51,10 @@ export default class QuestionBuilder {
         return this.selectedQuestion.correctAnswer === answer;
     }
 
+    getRightAnswer() {
+        return this.selectedQuestion.correctAnswer;
+    }
+
     randomizeChampionsAnswer(correctChampion) {
         const arr = this.shuffleArray([...this.champions].map(t => t.name).filter(t => t !== correctChampion)),
               selected = arr.slice(0, 3);
